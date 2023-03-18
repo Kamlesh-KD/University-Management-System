@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+   * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navbar__container {
+      background-color: greenyellow;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar__container--lists {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+    .navbar__container .navbar__container--lists a {
+      display: inline-block;
+      text-decoration: none;
+      color: #000000;
+      margin-left: 20px;
+    }
+    .custom__button {
+      padding: 10px 20px;
+      background-color: #111111;
+      border-radius: 5px;
+      color: #ffffff !important;
+      display: inline-block;
+    }
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.signinbtn {
+  float: left;
+  background: red;
+  width: 50%;
+  text-decoration: none;
+  color: white;
+}
+.signinbtn a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+}
+.signupbtn {
+  float: left;
+  background: orange;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+</style>
+<body>
+    <nav class="navbar__container">
+      <h2><a class="" href="{% url 'home' %}">University Management System</a></h2>
+    
+      <div class="navbar__container--lists">
+        <a class="" href="{% url 'add_student' %}">Add Student</a>
+        <a class="" href="{% url 'view_students' %}">View Students</a>
+        <a class="" href="{% url 'add_teacher' %}">Add Teacher</a>
+        <a class="" href="{% url 'view_teachers' %}">View Teacher</a>
+                <a class="" href="{% url 'add_department' %}">Add Department</a>
+                <a class="" href="{% url 'view_departments' %}">View Department</a>
+    
+        <a class="custom__button" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+
+    <form method="POST" style="border:1px solid #ccc">
+        {% csrf_token %}
+        {% include "./alert.html" %}
+      <div class="container">
+            <h1>Edit Student</h1>
+        <p>Fill Student from to edit student.</p>
+        <hr>
+        <label for="first_name"><b>First Name</b></label>
+        <input type="text" placeholder="Enter first name" name="first_name" required>
+        
+        <label for="last_name"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter last name" name="last_name" required>
+    
+    
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+        
+        <label for="phone_number"><b>Phone number</b></label>
+        <input type="text" placeholder="Enter number" name="phone_number" required>
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+    
+        <label for="department"><b>Department</b></label>
+          <select name="department" required>
+            <option value="" selected disabled hidden>Choose a department</option>
+            {% for de in dep %}
+            <option value="{{ de }}">{{ de }}</option>
+            {% endfor %}
+          </select>
+
+        <div class="clearfix">
+          <button type="submit" class="signupbtn">Edit Student</button>
+          <button class="signinbtn">
+            <a href="{% url 'home' %}">Cancel</a>
+          </button>
+    
+        </div>
+      </div>
+    </form>
+
+</body>
+</html>
